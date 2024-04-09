@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Dashboard</title>
+{% endblock %}
+
+{% block content %}
+    <div class="topbar">
+        <button id="past_day_button" {% if selected_range == 'past_day' %}class="active"{% else %} onclick="window.location.href='/past_day'"{% endif %}>Past Day</button>
+        <button id="past_month_button" {% if selected_range == 'past_month' %}class="active"{% else %} onclick="window.location.href='/past_month'"{% endif %}>Past Month</button>
+        <button id="past_year_button" {% if selected_range == 'past_year' %}class="active"{% else %} onclick="window.location.href='/past_year'"{% endif %}>Past Year</button>
+    </div>
+    <div class="main_container">
+        {% for service in status_data %}
+            <div class="service_container">
+                <div class="chart_container">
+                    <h3 class="service_name">{{ service["service_name"] }}</h3>
+                    <div id="chart_{{ service["service_name"] }}"></div>
+                </div>
+                <div class="table_container">
+                    <table class="table">
+                        <tr>
+                            <th>Datetime</th>
+                            <th>Status</th>
+                        </tr>
+                        <div id="data_{{ service["service_name"] }}">
+                            {% for item in service["data"] %}
+                                <tr>
+                                    <td>{{ item["datetime"] }}</td>
+                                    <td class="{% if item["status"] == "OK" %}status-green{% elif item["status"] == "WARNING" %}status-orange{% else %}status-red{% endif %}">{{ item["status"] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </div>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', {'packages': ['corechart']})
+
+        google.charts.setOnLoadCallback(drawCharts)
+
+        function drawCharts() {
+            {{ charts_data|tojson }}.forEach(function draw_chart(chart_data) {
+                    var data = new google.visualization.DataTable()
+                    data.addColumn('string', 'Status')
+                    data.addColumn('number', '');
+                    data.addRows([
+                        ['OK', chart_data["ok"]],
+                        ['WARNING', chart_data["warning"]],
+                        ['ERROR', chart_data["error"]]
+                    ]);
+
+                    var chart_options = {
+                        'is3D': true,
+                        'legend': {'position': "labeled"},
+                        'chartArea': {'width': "95%", 'height': "100%"},
+                        'slices': {
+                            0: {'color': "green"},
+                            1: {'color': "orange"},
+                            2: {'color': "red"},
+                        }
+                    }
+
+                    var chart_div = document.getElementById(`chart_${chart_data["service_name"]}`);
+
+
+                    var _3dchart = new google.visualization.PieChart(chart_div);
+                    _3dchart.draw(data, chart_options);
+                }
+            )
+        }
+    </script>
+{% endblock %}

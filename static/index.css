@@ -1,0 +1,82 @@
+
+.main_container {
+    width: 60%;
+    margin: auto;
+}
+
+
+table td {
+    width: 20em;
+    text-align: start
+}
+
+table th {
+    width: 20em;
+    text-align: start
+}
+
+.service_name {
+    margin-left: 1rem;
+}
+
+.status-green {
+    color: green;
+}
+
+.status-orange {
+    color: orange;
+}
+
+.status-error {
+    color: red;
+}
+
+.service_container {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.chart_container {
+    border: 1px solid grey;
+}
+
+.table_container {
+    overflow-y: auto;
+    max-height: 17rem;
+    border: 1px solid grey
+}
+
+.table {
+    margin-left: 1rem;
+}
+
+.topbar {
+    background-color: #007bff; /* Blue color */
+    overflow: hidden;
+    text-align: center; /* Align buttons to the center */
+}
+
+.topbar button {
+    background-color: #007bff; /* Blue color */
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin: 0 10px; /* Add some margin between buttons */
+}
+
+.topbar button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+
+.topbar button.active {
+    background-color: #0056b3; /* Darker blue color for active button */
+}
+
+body {
+    margin: 0;
+}

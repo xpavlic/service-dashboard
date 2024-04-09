@@ -1,0 +1,6 @@
+database:
+  host: localhost
+  user: root
+  password: password
+  database: status_dashboard
+  dashboard_table: dashboard_events

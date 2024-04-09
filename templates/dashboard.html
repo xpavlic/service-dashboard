@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Dashboard</title>
+{% endblock %}
+
+{% block content %}
+    <div class="main_container">
+        {% for service in status_data %}
+            <div id="{{ service["service_name"] }}" class="service_container">
+                <h3 class="service_name">{{ service["service_name"] }}</h3>
+                <div id="chart_{{ service["service_name"] }}"></div>
+                <button type="button" class="collapsible">Show records</button>
+                <div class="content">
+                    <table>
+                        <tr>
+                            <th>Datetime</th>
+                            <th>Status</th>
+                        </tr>
+                        {% for item in service["data"] %}
+                            <tr>
+                                <td>{{ item["datetime"] }}</td>
+                                <td class="{% if item["status"] == "OK" %}status-green{% elif item["status"] == "WARNING" %}status-orange{% else %}status-red{% endif %}">{{ item["status"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', {'packages': ['corechart']})
+
+        google.charts.setOnLoadCallback(drawCharts)
+
+        collapse_buttons_listeners();
+
+        function drawCharts() {
+            {{ charts_data|tojson }}.forEach(function draw_chart(chart_data) {
+                    var data = new google.visualization.DataTable()
+                    data.addColumn('string', 'Status')
+                    data.addColumn('number', '');
+                    data.addRows([
+                        ['OK', chart_data["ok"]],
+                        ['WARNING', chart_data["warning"]],
+                        ['ERROR', chart_data["error"]]
+                    ]);
+
+                    var chart_options = {
+                        'is3D': true,
+                        'legend': {'position': "labeled"},
+                        'chartArea': {'width': "95%", 'height': "100%"},
+                        'slices': {
+                            0: {'color': "green"},
+                            1: {'color': "orange"},
+                            2: {'color': "red"},
+                        }
+                    }
+
+                    var chart_div = document.getElementById(`chart_${chart_data["service_name"]}`);
+
+
+                    var _3dchart = new google.visualization.PieChart(chart_div);
+                    _3dchart.draw(data, chart_options);
+                }
+            )
+        }
+
+        function collapse_buttons_listeners() {
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        }
+    </script>
+{% endblock %}

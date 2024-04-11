@@ -1,57 +1,3 @@
-<<<<<<< HEAD
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.main_container {
-    width: 40%;
-    margin: auto;
-}
-
-.service_container {
-  margin-top: 5%;
-  border: 1px solid grey;
-}
-
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-  justify-content: center;
-}
-
-
-table td { width: 20em; text-align: start }
-table th { width: 20em; text-align: start }
-
-.service_name {
-  margin-left: 18px;
-}
-
-.status-green {
-  color: green;
-}
-
-.status-orange {
-  color: orange;
-}
-
-.status-error {
-  color: red;
-=======
 
 .main_container {
     width: 60%;
@@ -133,5 +79,4 @@ table th {
 
 body {
     margin: 0;
->>>>>>> fd451d29e388d44648dcb6fed8473a2d4a627054
 }

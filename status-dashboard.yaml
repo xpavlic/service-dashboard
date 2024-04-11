@@ -3,4 +3,10 @@ database:
   user: root
   password: password
   database: status_dashboard
-  dashboard_table: dashboard_events
+  table: dashboard_events
+
+services:
+  - db_name: auth_saml
+    display_name: Auth saml
+  - db_name: auth_saml2
+    display_name: Auth saml 2

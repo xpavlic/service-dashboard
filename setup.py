@@ -9,6 +9,7 @@ setup(
     install_requires=[
         "setuptools",
         "PyYAML~=6.0",
-        "flask~=3.0"
+        "flask~=3.0",
+        "mysql-connector-python~=8.3",
     ],
 )

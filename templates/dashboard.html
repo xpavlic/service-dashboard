@@ -4,24 +4,32 @@
 {% endblock %}
 
 {% block content %}
+    <div class="topbar">
+        <button id="past_day_button" {% if selected_range == 'past_day' %}class="active"{% else %} onclick="window.location.href='/past_day'"{% endif %}>Past Day</button>
+        <button id="past_month_button" {% if selected_range == 'past_month' %}class="active"{% else %} onclick="window.location.href='/past_month'"{% endif %}>Past Month</button>
+        <button id="past_year_button" {% if selected_range == 'past_year' %}class="active"{% else %} onclick="window.location.href='/past_year'"{% endif %}>Past Year</button>
+    </div>
     <div class="main_container">
         {% for service in status_data %}
-            <div id="{{ service["service_name"] }}" class="service_container">
-                <h3 class="service_name">{{ service["service_name"] }}</h3>
-                <div id="chart_{{ service["service_name"] }}"></div>
-                <button type="button" class="collapsible">Show records</button>
-                <div class="content">
-                    <table>
+            <div class="service_container">
+                <div class="chart_container">
+                    <h3 class="service_name">{{ service["service_name"] }}</h3>
+                    <div id="chart_{{ service["service_name"] }}"></div>
+                </div>
+                <div class="table_container">
+                    <table class="table">
                         <tr>
                             <th>Datetime</th>
                             <th>Status</th>
                         </tr>
-                        {% for item in service["data"] %}
-                            <tr>
-                                <td>{{ item["datetime"] }}</td>
-                                <td class="{% if item["status"] == "OK" %}status-green{% elif item["status"] == "WARNING" %}status-orange{% else %}status-red{% endif %}">{{ item["status"] }}</td>
-                            </tr>
-                        {% endfor %}
+                        <div id="data_{{ service["service_name"] }}">
+                            {% for item in service["data"] %}
+                                <tr>
+                                    <td>{{ item["datetime"] }}</td>
+                                    <td class="{% if item["status"] == "OK" %}status-green{% elif item["status"] == "WARNING" %}status-orange{% else %}status-red{% endif %}">{{ item["status"] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </div>
                     </table>
                 </div>
             </div>
@@ -35,8 +43,6 @@
         google.charts.load('current', {'packages': ['corechart']})
 
         google.charts.setOnLoadCallback(drawCharts)
-
-        collapse_buttons_listeners();
 
         function drawCharts() {
             {{ charts_data|tojson }}.forEach(function draw_chart(chart_data) {
@@ -67,23 +73,6 @@
                     _3dchart.draw(data, chart_options);
                 }
             )
-        }
-
-        function collapse_buttons_listeners() {
-            var coll = document.getElementsByClassName("collapsible");
-            var i;
-
-            for (i = 0; i < coll.length; i++) {
-                coll[i].addEventListener("click", function () {
-                    this.classList.toggle("active");
-                    var content = this.nextElementSibling;
-                    if (content.style.display === "block") {
-                        content.style.display = "none";
-                    } else {
-                        content.style.display = "block";
-                    }
-                });
-            }
         }
     </script>
 {% endblock %}

@@ -3,7 +3,8 @@ database:
   user: root
   password: password
   database: status_dashboard
-  table: dashboard_events
+  status_table: dashboard_events
+  uptime_table: service_uptime
 
 services:
   - db_name: auth_saml

@@ -5,9 +5,10 @@
 
 {% block content %}
     <div class="topbar">
-        <button id="past_day_button" {% if selected_range == 'past_day' %}class="active"{% else %} onclick="window.location.href='/past_day'"{% endif %}>Past Day</button>
-        <button id="past_month_button" {% if selected_range == 'past_month' %}class="active"{% else %} onclick="window.location.href='/past_month'"{% endif %}>Past Month</button>
-        <button id="past_year_button" {% if selected_range == 'past_year' %}class="active"{% else %} onclick="window.location.href='/past_year'"{% endif %}>Past Year</button>
+        <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <button id="past_day_button" {% if selected_range == 'past_day' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_day'"{% endif %}>Past Day</button>
+        <button id="past_month_button" {% if selected_range == 'past_month' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_month'"{% endif %}>Past Month</button>
+        <button id="past_year_button" {% if selected_range == 'past_year' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_year'"{% endif %}>Past Year</button>
     </div>
     <div class="main_container">
         {% for service in status_data %}
@@ -49,11 +50,17 @@
                     var data = new google.visualization.DataTable()
                     data.addColumn('string', 'Status')
                     data.addColumn('number', '');
-                    data.addRows([
-                        ['OK', chart_data["ok"]],
-                        ['WARNING', chart_data["warning"]],
-                        ['ERROR', chart_data["error"]]
-                    ]);
+                    var data_rows = [];
+                    if (chart_data["OK"] > 0) {
+                        data_rows.push(['OK', chart_data["OK"]])
+                    }
+                    if (chart_data["WARNING"] > 0) {
+                        data_rows.push(['WARNING', chart_data["WARNING"]])
+                    }
+                    if (chart_data["ERROR"] > 0) {
+                        data_rows.push(['ERROR', chart_data["ERROR"]])
+                    }
+                    data.addRows(data_rows);
 
                     var chart_options = {
                         'is3D': true,
@@ -63,7 +70,8 @@
                             0: {'color': "green"},
                             1: {'color': "orange"},
                             2: {'color': "red"},
-                        }
+                        },
+                        'sliceVisibilityThreshold': 0
                     }
 
                     var chart_div = document.getElementById(`chart_${chart_data["service_name"]}`);

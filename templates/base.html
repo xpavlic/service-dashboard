@@ -5,10 +5,22 @@
     <meta name="viewport" content="initial-scale=1.0" />
     {% block title %} {% endblock %}
     {% block preload %}
-        <link href="/static/index.css" rel="stylesheet" />
+        <link href="/static/index.css" rel="stylesheet"/>
+        <link href="/static/footer.css" rel="stylesheet"/>
     {% endblock %}
   </head>
   <body>
     {% block content %}{% endblock %}
+    <footer class="footer bg-dark">
+        <div class="footer-content">
+            <img class="footer-logo" src="{{ url_for('static', filename='images/flag_eu.png') }}" alt="Footer Logo">
+            <p class="footer-text">This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 654248.</p>
+            <div class="footer-links">
+                <a href="https://lifescience-ri.eu/contact.html" class="footer-link">Contact</a>
+                <a href="https://lifescience-ri.eu/imprint.html" class="footer-link">Imprint</a>
+                <a href="https://lifescience-ri.eu/privacy-policy.html" class="footer-link">Privacy policy</a>
+            </div>
+        </div>
+    </footer>
   </body>
 </html>

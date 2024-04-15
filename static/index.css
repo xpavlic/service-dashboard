@@ -6,12 +6,12 @@
 
 
 table td {
-    width: 20em;
+    width: 20rem;
     text-align: start
 }
 
 table th {
-    width: 20em;
+    width: 20rem;
     text-align: start
 }
 
@@ -53,30 +53,44 @@ table th {
 }
 
 .topbar {
-    background-color: #007bff; /* Blue color */
+    display: flex;
+    justify-content: center;
+    background-color: #212529;
+    color: #ffffff;
     overflow: hidden;
-    text-align: center; /* Align buttons to the center */
+    padding: 0.5rem
 }
 
 .topbar button {
-    background-color: #007bff; /* Blue color */
-    color: white;
-    padding: 14px 20px;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 1rem 1.5rem;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     transition: background-color 0.3s;
-    margin: 0 10px; /* Add some margin between buttons */
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+    border-radius: 10px;
 }
 
 .topbar button:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
+    background-color: #171717;
 }
 
 .topbar button.active {
-    background-color: #0056b3; /* Darker blue color for active button */
+    background-color: #171717;
 }
 
 body {
     margin: 0;
 }
+
+.logo {
+    height: auto;
+    margin-right: 2rem;
+    width: 10rem;
+}
+
+
+

@@ -1,7 +1,15 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 
 .main_container {
     width: 60%;
     margin: auto;
+    flex: 1;
+    justify-content: center;
 }
 
 
@@ -27,14 +35,14 @@ table th {
     color: orange;
 }
 
-.status-error {
+.status-red {
     color: red;
 }
 
 .service_container {
     display: grid;
-    grid-template-columns: 1fr 0.8fr;
-    margin-top: 2rem;
+    grid-template-columns: 1fr 1fr;
+    margin: 2rem;
     justify-content: center;
 }
 
@@ -49,37 +57,7 @@ table th {
 }
 
 .table {
-    margin-left: 1rem;
-}
-
-.topbar {
-    display: flex;
-    justify-content: center;
-    background-color: #212529;
-    color: #ffffff;
-    overflow: hidden;
-    padding: 0.5rem
-}
-
-.topbar button {
-    background-color: #343a40;
-    color: #ffffff;
-    padding: 1rem 1.5rem;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-    margin-right: 0.3rem;
-    margin-left: 0.3rem;
-    border-radius: 10px;
-}
-
-.topbar button:hover {
-    background-color: #171717;
-}
-
-.topbar button.active {
-    background-color: #171717;
+    margin: 1rem 1rem;
 }
 
 body {

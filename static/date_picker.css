@@ -1,0 +1,45 @@
+.datepicker_form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    background-color: #212529;
+    color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.datepicker_container {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem;
+}
+
+.datepicker_item {
+    margin: 0.1rem;
+}
+
+.datepicker_label {
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+
+.datepicker_button {
+    font-size: 1rem;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 0.5rem;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.datepicker_button:hover {
+    background-color: #171717;
+}
+
+.datepicker_date {
+    padding: 0.25rem;
+    text-align: center;
+}

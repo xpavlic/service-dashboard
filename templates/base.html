@@ -6,11 +6,23 @@
     {% block title %} {% endblock %}
     {% block preload %}
         <link href="/static/index.css" rel="stylesheet"/>
+        <link href="/static/header.css" rel="stylesheet"/>
         <link href="/static/footer.css" rel="stylesheet"/>
+        <link href="/static/date_picker.css" rel="stylesheet"/>
     {% endblock %}
   </head>
   <body>
+  <div class="page">
+    <header class="topbar">
+        <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <button id="past_day_button" {% if selected_range == 'past_day' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_day'"{% endif %}>Past Day</button>
+        <button id="past_month_button" {% if selected_range == 'past_month' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_month'"{% endif %}>Past Month</button>
+        <button id="past_year_button" {% if selected_range == 'past_year' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_year'"{% endif %}>Past Year</button>
+        <button id="select_date_button" {% if selected_range == 'select_date' %}class="active"{% else %} onclick="window.location.href='/dashboard/select_date'"{% endif %}>Select Date</button>
+    </header>
+
     {% block content %}{% endblock %}
+
     <footer class="footer bg-dark">
         <div class="footer-content">
             <img class="footer-logo" src="{{ url_for('static', filename='images/flag_eu.png') }}" alt="Footer Logo">
@@ -22,5 +34,6 @@
             </div>
         </div>
     </footer>
+  </div>
   </body>
 </html>

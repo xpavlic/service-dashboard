@@ -4,13 +4,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="topbar">
-        <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
-        <button id="past_day_button" {% if selected_range == 'past_day' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_day'"{% endif %}>Past Day</button>
-        <button id="past_month_button" {% if selected_range == 'past_month' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_month'"{% endif %}>Past Month</button>
-        <button id="past_year_button" {% if selected_range == 'past_year' %}class="active"{% else %} onclick="window.location.href='/dashboard/past_year'"{% endif %}>Past Year</button>
-    </div>
     <div class="main_container">
+        {% if selected_range == 'select_date' %}
+            <div class="datepicker_container">
+                <form class="datepicker_form" action="{{ url_for('dashboard', selected_range=selected_range) }}">
+                    <label class="datepicker_item datepicker_label" for="datepicker">Select date</label>
+                    <input class="datepicker_item datepicker_date" type="date" id="datepicker" name="date" value="{{ request.args.get("date") }}">
+                    <button class="datepicker_item datepicker_button" type="submit" id="datepicker_button">Submit</button>
+                </form>
+            </div>
+        {% endif %}
         {% for service in status_data %}
             <div class="service_container">
                 <div class="chart_container">
@@ -20,12 +23,14 @@
                 <div class="table_container">
                     <table class="table">
                         <tr>
+                            <th>Host</th>
                             <th>Datetime</th>
                             <th>Status</th>
                         </tr>
                         <div id="data_{{ service["service_name"] }}">
                             {% for item in service["data"] %}
                                 <tr>
+                                    <td>{{ item["host"] }}</td>
                                     <td>{{ item["datetime"] }}</td>
                                     <td class="{% if item["status"] == "OK" %}status-green{% elif item["status"] == "WARNING" %}status-orange{% else %}status-red{% endif %}">{{ item["status"] }}</td>
                                 </tr>
@@ -57,8 +62,8 @@
                     if (chart_data["WARNING"] > 0) {
                         data_rows.push(['WARNING', chart_data["WARNING"]])
                     }
-                    if (chart_data["ERROR"] > 0) {
-                        data_rows.push(['ERROR', chart_data["ERROR"]])
+                    if (chart_data["CRITICAL"] > 0) {
+                        data_rows.push(['CRITICAL', chart_data["CRITICAL"]])
                     }
                     data.addRows(data_rows);
 

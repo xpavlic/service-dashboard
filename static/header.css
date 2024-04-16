@@ -1,0 +1,29 @@
+.topbar {
+    display: flex;
+    justify-content: center;
+    background-color: #212529;
+    color: #ffffff;
+    overflow: hidden;
+    padding: 0.5rem
+}
+
+.topbar button {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 1rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+    border-radius: 10px;
+}
+
+.topbar button:hover {
+    background-color: #171717;
+}
+
+.topbar button.active {
+    background-color: #171717;
+}

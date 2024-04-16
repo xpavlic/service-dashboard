@@ -7,7 +7,5 @@ database:
   uptime_table: service_uptime
 
 services:
-  - db_name: auth_saml
-    display_name: Auth saml
-  - db_name: auth_saml2
-    display_name: Auth saml 2
+  auth_saml: Auth Saml
+  auth_saml3: Auth Saml3

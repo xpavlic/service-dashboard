@@ -9,7 +9,7 @@
             <div class="datepicker_container">
                 <form class="datepicker_form" action="{{ url_for('dashboard', selected_range=selected_range) }}">
                     <label class="datepicker_item datepicker_label" for="datepicker">Select date</label>
-                    <input class="datepicker_item datepicker_date" type="date" id="datepicker" name="date" value="{{ request.args.get("date") }}">
+                    <input class="datepicker_item datepicker_date" type="date" id="datepicker" name="date" value="{{ request.args.get("date") }}" required>
                     <button class="datepicker_item datepicker_button" type="submit" id="datepicker_button">Submit</button>
                 </form>
             </div>

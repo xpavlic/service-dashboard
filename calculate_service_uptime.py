@@ -28,9 +28,9 @@ def get_config():
     return argument_parser.cfg
 
 
-def calculate_service_uptime_for_period(period, cursor, src_table, service_name, host):
+def calculate_service_uptime_for_period(cursor, src_table, sql_condition):
     cursor.execute(
-        f"SELECT * FROM {src_table} WHERE service = '{service_name}' AND host = '{host}' AND event_time >= NOW() - INTERVAL 1 {period} ORDER BY event_time ASC;;")
+        f"SELECT * FROM {src_table} {sql_condition} ORDER BY event_time ASC;;")
     data = cursor.fetchall()
     status_list = []
     for row in data:
@@ -88,7 +88,8 @@ def calculate_and_store_uptime(cursor, src_table, dest_table):
         service_name = row[0]
         host = row[1]
         for period in ["DAY", "MONTH", "YEAR"]:
-            status_uptime = calculate_service_uptime_for_period(period, cursor, src_table, service_name, host)
+            status_uptime = calculate_service_uptime_for_period(cursor, src_table,
+                                                                f"WHERE service = '{service_name}' AND host = '{host}' AND event_time >= NOW() - INTERVAL 1 {period}")
             if status_uptime:
                 store_service_uptime(service_name, host, period, cursor, dest_table, status_uptime[OK],
                                      status_uptime[CRITICAL], status_uptime[WARNING])

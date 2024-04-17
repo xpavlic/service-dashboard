@@ -30,12 +30,12 @@ def get_config():
 
 def calculate_service_uptime_for_period(cursor, src_table, sql_condition):
     cursor.execute(
-        f"SELECT * FROM {src_table} {sql_condition} ORDER BY event_time ASC;;")
+        f"SELECT event_time, status FROM {src_table} {sql_condition} ORDER BY event_time ASC;;")
     data = cursor.fetchall()
     status_list = []
     for row in data:
-        event_time = row[3]
-        status = row[4]
+        event_time = row[0]
+        status = row[1]
         status_list.append({"time": event_time, "status": status})
 
     status_uptime = {OK: 0, WARNING: 0, CRITICAL: 0}

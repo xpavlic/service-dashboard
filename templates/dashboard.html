@@ -7,10 +7,16 @@
     <div class="main_container">
         {% if selected_range == 'select_date' %}
             <div class="datepicker_container">
-                <form class="datepicker_form" action="{{ url_for('dashboard', selected_range=selected_range) }}">
-                    <label class="datepicker_item datepicker_label" for="datepicker">Select date</label>
-                    <input class="datepicker_item datepicker_date" type="date" id="datepicker" name="date" value="{{ request.args.get("date") }}" required>
-                    <button class="datepicker_item datepicker_button" type="submit" id="datepicker_button">Submit</button>
+                <form class="datepicker_form"
+                      action="{{ url_for('dashboard', selected_range=selected_range) }}">
+                    <label class="datepicker_item datepicker_label" for="datepicker">Select
+                        date</label>
+                    <input class="datepicker_item datepicker_date" type="date"
+                           id="datepicker" name="date"
+                           value="{{ request.args.get("date") }}" required>
+                    <button class="datepicker_item datepicker_button" type="submit"
+                            id="datepicker_button">Submit
+                    </button>
                 </form>
             </div>
         {% endif %}
@@ -56,6 +62,7 @@
                     data.addColumn('string', 'Status')
                     data.addColumn('number', '');
                     var data_rows = [];
+                    // build slices
                     if (chart_data["OK"] > 0) {
                         data_rows.push(['OK', chart_data["OK"]])
                     }
@@ -66,16 +73,23 @@
                         data_rows.push(['CRITICAL', chart_data["CRITICAL"]])
                     }
                     data.addRows(data_rows);
+                    var colors = {
+                        'OK': 'green',
+                        'WARNING': 'orange',
+                        'CRITICAL': 'red'
+                    };
+                    var slices = [];
+                    for (var i = 0; i < data.getNumberOfRows(); i++) {
+                        slices.push({
+                            color: colors[data.getValue(i, 0)]
+                        });
+                    }
 
                     var chart_options = {
                         'is3D': true,
                         'legend': {'position': "labeled"},
                         'chartArea': {'width': "95%", 'height': "100%"},
-                        'slices': {
-                            0: {'color': "green"},
-                            1: {'color': "orange"},
-                            2: {'color': "red"},
-                        },
+                        'slices': slices,
                         'sliceVisibilityThreshold': 0
                     }
 

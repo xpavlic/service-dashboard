@@ -1,7 +1,0 @@
-database:
-  host: localhost
-  user: root
-  password: password
-  database: status_dashboard
-  source_table: dashboard_events
-  destination_table: service_uptime

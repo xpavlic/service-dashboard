@@ -11,5 +11,6 @@ setup(
         "PyYAML~=6.0",
         "flask~=3.0",
         "mysql-connector-python~=8.3",
+        "python-dateutil"
     ],
 )
